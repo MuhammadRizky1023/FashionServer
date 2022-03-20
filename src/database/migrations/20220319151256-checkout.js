@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_address', {
+    return queryInterface.createTable('checkouts', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -36,19 +36,30 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      user_id: {
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: new Date(),
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
+      },
+      product_id: {
         type: Sequelize.UUID,
         references: {
-          model: 'users',
+          model: 'products',
           key: 'id',
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
+      
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user_address');
+    return queryInterface.dropTable('checkouts');
   },
 };

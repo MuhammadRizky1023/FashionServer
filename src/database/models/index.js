@@ -4,7 +4,7 @@ const UserType = require('./UserType');
 const Category = require('./Category');
 const User = require('./User');
 const Product = require('./Product');
-const Order = require('./Order');
+const Checkout = require('./Checkout');
 const Cart = require('./Cart');
 UserType.hasMany(User, {
     foreignKey: 'user_type_id',
@@ -27,23 +27,11 @@ UserType.hasMany(User, {
   
   Product.belongsTo(Category, {
     foreignKey: 'category_id',
-    as: 'category',
+    as: 'categories',
     targetKey: 'id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
-  
-  User.hasOne(Cart, {
-    foreignKey: 'user_id',
-  });
-  
-  Cart.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-  
-  
   
   User.hasOne(UserAddress, {
     foreignKey: 'user_id',
@@ -54,6 +42,34 @@ UserType.hasMany(User, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
+
+  Product.hasMany(Checkout, {
+    foreignKey: 'product_id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+  
+  Checkout.belongsTo(Product, {
+    foreignKey: 'product_id',
+    targetKey: 'id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+
+  Cart.belongsTo(Product, {
+    foreignKey: 'product_id',
+    targetKey: 'id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+  
+  
+  Product.hasMany(Cart, {
+    foreignKey: 'product_id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+  
   
   
   module.exports = {
@@ -63,7 +79,7 @@ UserType.hasMany(User, {
     Category,
     Product,
     Cart,
-    Order,
+    Checkout,
     UserAddress,
 
   };

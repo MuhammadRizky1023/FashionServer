@@ -1,4 +1,4 @@
-const { Cart, User} = require('../database/models')
+const { Cart} = require('../database/models')
 
 exports.getCart = async (req, res, next) => {
     try {
@@ -59,9 +59,9 @@ exports.addCart = async (req, res, next) => {
     }
 }
 
-exports.upateCart = async (req, res, next) => {
+exports.updateCart = async (req, res, next) => {
     try {
-        const { user } = req
+        const { product } = req
         const {id } = req.body
 
         const cart = await Cart.findByPk(id)
@@ -71,7 +71,7 @@ exports.upateCart = async (req, res, next) => {
         }
 
         await Cart.update({
-            user_id: user.id,
+            product_id: product.id,
         }, {
             where: {
                 id

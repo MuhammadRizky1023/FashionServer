@@ -20,13 +20,13 @@ Cart.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    user_id: {
+    product_id: {
       type: DataTypes.UUID,
       allowNull: false,
     },
   },
   {
-    modelName: 'cart',
+    modelName: 'carts',
     sequelize: connection,
     paranoid: false,
     timestamps: false,

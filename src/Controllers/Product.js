@@ -3,7 +3,7 @@ const { Product, Category } = require('../database/models');
 
 exports.getProduct = async (req, res, next) => {
   try {
-    const products = await Product.findAll({include: 'category'});
+    const products = await Product.findAll({include: 'categories'});
     console.log(products)
     if (!products) {
       throw new Error(`can't get the products`);
@@ -66,7 +66,7 @@ exports.findProductById = async (req, res, next) => {
           status: 'Success',
           code: 200,
           message: 'Success get Product by id',
-          data: todo
+          data: product
       })
   } catch (error) {
       return next(error)
